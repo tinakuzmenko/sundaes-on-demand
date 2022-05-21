@@ -1,9 +1,10 @@
 import "./App.css";
+import OrderSummary from "./pages/summary/OrderSummary";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello world!</h1>
+      <OrderSummary />
     </div>
   );
 }
