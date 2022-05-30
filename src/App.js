@@ -1,12 +1,7 @@
 import "./App.css";
-import OrderSummary from "./pages/summary/OrderSummary";
 
 function App() {
-  return (
-    <div className="App">
-      <OrderSummary />
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;

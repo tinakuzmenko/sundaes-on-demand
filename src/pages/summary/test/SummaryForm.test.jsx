@@ -47,11 +47,9 @@ describe("Summary Form", () => {
   it("should popover respond to hover", async function () {
     render(<SummaryForm />);
 
-    // popover starts out hidden
     const nullPopover = screen.queryByText(
       /no ice cream will actually be delivered/i
     );
-
     expect(nullPopover).not.toBeInTheDocument();
 
     // popover appears upon mouseover of checkbox label
@@ -62,12 +60,10 @@ describe("Summary Form", () => {
     const popover = screen.getByText(
       /no ice cream will actually be delivered/i
     );
-
     expect(popover).toBeInTheDocument();
 
     // popover disappears on mouseout
     userEvent.unhover(termsAndConditions);
-
     await waitForElementToBeRemoved(() =>
       screen.queryByText(/no ice cream will actually be delivered/i)
     );
