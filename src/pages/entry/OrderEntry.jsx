@@ -2,10 +2,10 @@ import Options from "./Options";
 
 const OrderEntry = () => {
   return (
-    <div>
+    <>
       <Options optionType="scoops" />
       <Options optionType="toppings" />
-    </div>
+    </>
   );
 };
 

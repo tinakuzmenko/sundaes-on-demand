@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ScoopOption from "./ScoopOption";
-import { Row } from "react-bootstrap";
+import Row from "react-bootstrap/Row";
 import ToppingOption from "./ToppingOption";
 import AlertBanner from "../common/AlertBanner";
+import { pricePerItem } from "../../constants/constants";
+import { useOrderDetails } from "../../contexts/OrderDetails";
 
 const Options = ({ optionType }) => {
   const [items, setItems] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [orderDetails, updateItemCount] = useOrderDetails();
 
   useEffect(() => {
     const getData = async () => {
@@ -23,6 +26,7 @@ const Options = ({ optionType }) => {
   }, [optionType]);
 
   const ItemComponent = optionType === "scoops" ? ScoopOption : ToppingOption;
+  const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
   const optionItems = items.map((item) => {
     return (
@@ -30,11 +34,25 @@ const Options = ({ optionType }) => {
         key={item.name}
         imagePath={item.imagePath}
         name={item.name}
+        updateItemCount={(itemName, newItemCount) =>
+          updateItemCount(itemName, newItemCount, optionType)
+        }
       />
     );
   });
 
-  return !isError ? <Row>{optionItems}</Row> : <AlertBanner />;
+  return !isError ? (
+    <div style={{ margin: "20px 0" }}>
+      <h2>{title}</h2>
+      <p>{pricePerItem[optionType]}$ each</p>
+      <p>
+        {title} total: {orderDetails.totals[optionType]}
+      </p>
+      <Row>{optionItems}</Row>
+    </div>
+  ) : (
+    <AlertBanner />
+  );
 };
 
 export default Options;

@@ -2,6 +2,7 @@ import { server } from "../../../mocks/server";
 import { rest } from "msw";
 import OrderEntry from "../OrderEntry";
 import { render, screen, waitFor } from "@testing-library/react";
+import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -18,7 +19,9 @@ describe("OrderEntry", () => {
       )
     );
 
-    render(<OrderEntry />);
+    render(<OrderEntry />, {
+      wrapper: OrderDetailsProvider,
+    });
 
     await waitFor(async () => {
       const alerts = await screen.findAllByRole("alert");
