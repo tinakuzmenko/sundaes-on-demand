@@ -1,7 +1,11 @@
 import { server } from "../../../mocks/server";
 import { rest } from "msw";
 import OrderEntry from "../OrderEntry";
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+} from "../../../test-utils/testing-library-utils";
 import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 
 beforeAll(() => server.listen());
