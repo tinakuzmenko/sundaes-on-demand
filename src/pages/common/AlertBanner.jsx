@@ -5,11 +5,7 @@ const AlertBanner = ({ message, variant }) => {
     message || "An unexpected error occurred. Please try again later.";
   const alertVariant = variant || "danger";
 
-  return (
-    <Alert variant={alertVariant} style={{ backgroundColor: "red" }}>
-      {alertMessage}
-    </Alert>
-  );
+  return <Alert variant={alertVariant}>{alertMessage}</Alert>;
 };
 
 export default AlertBanner;

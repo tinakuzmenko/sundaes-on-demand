@@ -41,17 +41,15 @@ const Options = ({ optionType }) => {
     );
   });
 
-  return !isError ? (
+  return (
     <div style={{ margin: "20px 0" }}>
       <h2>{title}</h2>
       <p>{pricePerItem[optionType]}$ each</p>
       <p>
         {title} total: {orderDetails.totals[optionType]}
       </p>
-      <Row>{optionItems}</Row>
+      {!isError ? <Row>{optionItems}</Row> : <AlertBanner />}
     </div>
-  ) : (
-    <AlertBanner />
   );
 };
 

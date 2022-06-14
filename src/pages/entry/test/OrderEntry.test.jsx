@@ -6,7 +6,6 @@ import {
   screen,
   waitFor,
 } from "../../../test-utils/testing-library-utils";
-import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

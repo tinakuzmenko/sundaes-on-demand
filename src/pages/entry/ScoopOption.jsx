@@ -12,7 +12,7 @@ const ScoopOption = ({ name, imagePath, updateItemCount }) => {
       <img
         src={`http://localhost:3030${imagePath}`}
         alt={`${name} scoop`}
-        style={{ width: "75%" }}
+        style={{ display: "block", margin: "0 auto", width: "75%" }}
       />
       <Form.Group
         controlId={`${name}-count`}
@@ -28,6 +28,7 @@ const ScoopOption = ({ name, imagePath, updateItemCount }) => {
             defaultValue={0}
             min={0}
             onChange={inputChangeHandler}
+            style={{ maxWidth: "80px" }}
           />
         </Col>
       </Form.Group>
