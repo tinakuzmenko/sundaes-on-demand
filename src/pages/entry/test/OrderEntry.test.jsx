@@ -23,9 +23,7 @@ describe("OrderEntry", () => {
       )
     );
 
-    render(<OrderEntry />, {
-      wrapper: OrderDetailsProvider,
-    });
+    render(<OrderEntry />);
 
     await waitFor(async () => {
       const alerts = await screen.findAllByRole("alert");
