@@ -5,7 +5,7 @@ import { OrderDetailsProvider } from "./contexts/OrderDetails";
 
 function App() {
   return (
-    <Container>
+    <Container style={{ paddingTop: "40px", paddingBottom: "40px" }}>
       <OrderDetailsProvider>
         <OrderEntry />
         {/* Summary */}

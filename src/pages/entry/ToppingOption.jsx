@@ -7,7 +7,7 @@ const ToppingOption = ({ name, imagePath, updateItemCount }) => {
   };
 
   return (
-    <Col xs={12} sm={6} md={4} lg={3}>
+    <Col xs={12} sm={6} md={4} lg={2}>
       <img
         src={`http://localhost:3030${imagePath}`}
         alt={`${name} topping`}
