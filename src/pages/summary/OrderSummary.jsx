@@ -4,7 +4,7 @@ import SummaryForm from "./SummaryForm";
 const OrderSummary = (props) => {
   return (
     <>
-      <SummaryForm />
+      <SummaryForm {...props} />
     </>
   );
 };

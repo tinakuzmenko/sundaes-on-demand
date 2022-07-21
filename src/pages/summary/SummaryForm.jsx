@@ -5,9 +5,9 @@ import {
   FormGroup,
   OverlayTrigger,
   Popover,
-} from "react-bootstrap"; //
+} from "react-bootstrap";
 
-const SummaryForm = () => {
+const SummaryForm = ({ onPhaseFinish }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const popover = (
@@ -33,8 +33,14 @@ const SummaryForm = () => {
     setIsChecked(event.target.checked);
   };
 
+  const submitFormHandler = () => {
+    // send request
+
+    onPhaseFinish("complete");
+  };
+
   return (
-    <Form>
+    <Form onSubmit={submitFormHandler}>
       <FormGroup controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"

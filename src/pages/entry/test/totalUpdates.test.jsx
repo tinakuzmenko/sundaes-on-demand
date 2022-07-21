@@ -2,7 +2,6 @@ import { render, screen } from "../../../test-utils/testing-library-utils";
 import userEvent from "@testing-library/user-event";
 import Options from "../Options";
 import OrderEntry from "../OrderEntry";
-import { getByRole } from "@testing-library/react";
 
 describe("Total updates", () => {
   it("should update scoop subtotal when scoop change", async () => {
