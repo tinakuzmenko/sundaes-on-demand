@@ -22,10 +22,10 @@ const App = () => {
         {orderPhase === "review" && (
           <OrderSummary onPhaseFinish={phaseChangeHandler} />
         )}
+        {orderPhase === "complete" && (
+          <OrderConfirmation onPhaseFinish={phaseChangeHandler} />
+        )}
       </OrderDetailsProvider>
-      {orderPhase === "complete" && (
-        <OrderConfirmation onPhaseFinish={phaseChangeHandler} />
-      )}
     </Container>
   );
 };

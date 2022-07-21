@@ -33,9 +33,8 @@ const SummaryForm = ({ onPhaseFinish }) => {
     setIsChecked(event.target.checked);
   };
 
-  const submitFormHandler = () => {
-    // send request
-
+  const submitFormHandler = (event) => {
+    event.preventDefault();
     onPhaseFinish("complete");
   };
 
