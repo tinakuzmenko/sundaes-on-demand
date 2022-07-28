@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 
 const OrderEntry = ({ onPhaseFinish }) => {
   const [orderDetails] = useOrderDetails();
+  const orderDisabled = orderDetails.totals.scoops === "$0.00";
 
   return (
     <>
@@ -14,6 +15,7 @@ const OrderEntry = ({ onPhaseFinish }) => {
       <Button
         variant="primary"
         type="button"
+        disabled={orderDisabled}
         onClick={() => {
           onPhaseFinish("review");
         }}

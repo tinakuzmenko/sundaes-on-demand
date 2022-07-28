@@ -6,6 +6,8 @@ import {
   screen,
   waitFor,
 } from "../../../test-utils/testing-library-utils";
+import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
+import userEvent from "@testing-library/user-event";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -29,5 +31,27 @@ describe("OrderEntry", () => {
 
       expect(alerts).toHaveLength(2);
     });
+  });
+
+  it("should disable button where no scoops and enable button when at least one scoop", async () => {
+    render(<OrderEntry />, { wrapper: OrderDetailsProvider });
+
+    const orderButton = screen.getByRole("button", {
+      name: "Order Sundae!",
+    });
+
+    expect(orderButton).toBeDisabled();
+
+    const vanillaInput = await screen.findByRole("spinbutton", {
+      name: "Vanilla",
+    });
+
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "1");
+    expect(orderButton).toBeEnabled();
+
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "0");
+    expect(orderButton).toBeDisabled();
   });
 });
