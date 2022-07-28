@@ -6,6 +6,17 @@ import { mapEntriesToStrings } from "../../utilities/utilities";
 const OrderSummary = (props) => {
   const [orderDetails] = useOrderDetails();
 
+  const toppingsDisplay = (
+    <>
+      <h2>Toppings: {orderDetails.totals.toppings}</h2>
+      <ul>
+        {mapEntriesToStrings(orderDetails.toppings).map((string, index) => (
+          <li key={`toppings-${index}`}>{string}</li>
+        ))}
+      </ul>
+    </>
+  );
+
   return (
     <>
       <h1>Order Summary</h1>
@@ -15,12 +26,7 @@ const OrderSummary = (props) => {
           <li key={`scoops-${index}`}>{string}</li>
         ))}
       </ul>
-      <h2>Toppings: {orderDetails.totals.toppings}</h2>
-      <ul>
-        {mapEntriesToStrings(orderDetails.toppings).map((string, index) => (
-          <li key={`toppings-${index}`}>{string}</li>
-        ))}
-      </ul>
+      {orderDetails.toppings.size > 0 && toppingsDisplay}
       <h2>Total: {orderDetails.totals.grandTotal}</h2>
       <SummaryForm {...props} />
     </>

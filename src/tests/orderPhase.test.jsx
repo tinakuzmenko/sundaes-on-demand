@@ -54,8 +54,12 @@ test("order phases for happy path", async () => {
   expect(confirmationButton).toBeInTheDocument();
   userEvent.click(confirmationButton);
 
+  const loadingText = screen.getByText("Loading", { exact: false });
+  expect(loadingText).toBeInTheDocument();
+
   // confirm order number on confirmation page
   const thankYouHeader = await screen.findByText("Thank you", { exact: false });
+  expect(loadingText).not.toBeInTheDocument();
   expect(thankYouHeader).toBeInTheDocument();
 
   const orderNumber = await screen.findByText("Your order number is", {
@@ -81,4 +85,34 @@ test("order phases for happy path", async () => {
 
   await screen.findByRole("spinbutton", { name: "Vanilla" });
   await screen.findByRole("checkbox", { name: "Hot fudge" });
+});
+
+test("order summary should not show toppings section when no toppings", async () => {
+  // render app
+  render(<App />);
+
+  // add ice cream and topping
+  const vanillaInput = await screen.findByRole("spinbutton", {
+    name: "Vanilla",
+  });
+
+  userEvent.clear(vanillaInput);
+  userEvent.type(vanillaInput, "1");
+
+  // find and click order button
+  const orderButton = screen.getByRole("button", {
+    name: "Order Sundae!",
+  });
+  expect(orderButton).toBeInTheDocument();
+  userEvent.click(orderButton);
+
+  // check summary information based on order
+  const scoopsAmount = screen.getByText("Scoops: $", { exact: false });
+  expect(scoopsAmount).toBeInTheDocument();
+  expect(scoopsAmount).toHaveTextContent("2.00");
+
+  const toppingsAmount = screen.queryByText("Toppings: $", {
+    exact: false,
+  });
+  expect(toppingsAmount).not.toBeInTheDocument();
 });
