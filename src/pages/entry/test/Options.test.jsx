@@ -2,6 +2,7 @@ import { render, screen } from "../../../test-utils/testing-library-utils";
 
 import Options from "../Options";
 import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
+import userEvent from "@testing-library/user-event";
 
 describe("Options component", () => {
   it("should display image for each scoop from server", async () => {
@@ -34,5 +35,21 @@ describe("Options component", () => {
       "Hot fudge topping",
       "Peanut butter cups topping",
     ]);
+  });
+
+  it("should not update the total when scoops are invalid", async () => {
+    render(<Options optionType="scoops" />, {
+      wrapper: OrderDetailsProvider,
+    });
+
+    const vanillaInput = await screen.findByRole("spinbutton", {
+      name: "Vanilla",
+    });
+
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "-1");
+
+    const scoopsSubtotal = screen.getByText("Scoops total: $0.00");
+    expect(scoopsSubtotal).toBeInTheDocument();
   });
 });

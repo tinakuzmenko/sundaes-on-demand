@@ -1,10 +1,21 @@
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { useState } from "react";
 
 const ScoopOption = ({ name, imagePath, updateItemCount }) => {
+  const [inputIsValid, setInputIsValid] = useState(true);
+
   const inputChangeHandler = (event) => {
-    updateItemCount(name, event.target.value);
+    const isValid =
+      event.target.value &&
+      event.target.value >= 0 &&
+      event.target.value <= 10 &&
+      event.target.value % 1 === 0;
+
+    setInputIsValid(isValid);
+
+    if (isValid) updateItemCount(name, event.target.value);
   };
 
   return (
@@ -26,7 +37,7 @@ const ScoopOption = ({ name, imagePath, updateItemCount }) => {
           <Form.Control
             type="number"
             defaultValue={0}
-            min={0}
+            isInvalid={!inputIsValid}
             onChange={inputChangeHandler}
             style={{ maxWidth: "80px" }}
           />

@@ -2,9 +2,11 @@ import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useOrderDetails } from "../../contexts/OrderDetails";
+import AlertBanner from "../common/AlertBanner";
 
 const OrderConfirmation = ({ onPhaseFinish }) => {
   const [orderNumber, setOrderNumber] = useState(null);
+  const [isError, setIsError] = useState(false);
   const [, , resetOrder] = useOrderDetails();
 
   const clickHandler = () => {
@@ -13,15 +15,19 @@ const OrderConfirmation = ({ onPhaseFinish }) => {
   };
 
   useEffect(() => {
-    axios
-      .post("http://localhost:3030/order")
-      .then((response) => {
+    const postData = async () => {
+      try {
+        const response = await axios.post("http://localhost:3030/order");
         setOrderNumber(response.data.orderNumber);
-      })
-      .catch((error) => {
-        // @todo handling the error
-      });
+      } catch (error) {
+        setIsError(true);
+      }
+    };
+
+    postData();
   }, []);
+
+  if (isError) return <AlertBanner />;
 
   return !orderNumber ? (
     <h1 style={{ textAlign: "center" }}>Loading...</h1>
